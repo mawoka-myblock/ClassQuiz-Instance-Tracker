@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Data</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>Users</th>
+        <th>Public Quizzes</th>
+        <th>Private Quizzes</th>
+        <th>IP Address</th>
+        <th>Last Seen</th>
+        <th>First Seen</th>
+    </tr>
+
+    {{ range .instances }}
+    <tr>
+        <td>{{ .Users }}</td>
+        <td>{{ .PublicQuizzes }}</td>
+        <td>{{ .PrivateQuizzes }}</td>
+        <td>{{ .IP }}</td>
+        <td>{{ .UpdatedAt }}</td>
+        <td>{{ .CreatedAt }}</td>
+    </tr>
+    {{ end }}
+</table>
+
+
+</body>
+</html>
