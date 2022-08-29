@@ -16,7 +16,7 @@ WORKDIR /data
 
 COPY --from=builder /instance_tracker /instance_tracker
 ENV DATABASE_PATH="/data/data.db"
-#ENV GIN_MODE=release
+ENV GIN_MODE=release
 EXPOSE 8080
 #ENV PORT=0.0.0.0:8080
 ENTRYPOINT ["/instance_tracker"]
