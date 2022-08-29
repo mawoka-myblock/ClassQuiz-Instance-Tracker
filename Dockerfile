@@ -1,22 +1,22 @@
 FROM golang:1.19 as builder
 
-WORKDIR /usr/local/go/src/InstanceTracker
+WORKDIR /app
 
 COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
-COPY src ./
+COPY src/ /app/src/
+COPY main.go ./
 RUN go build -o /instance_tracker
 
 
 FROM gcr.io/distroless/base-debian11
 
-WORKDIR /
+WORKDIR /data
 
 COPY --from=builder /instance_tracker /instance_tracker
 ENV DATABASE_PATH="/data/data.db"
-ENV GIN_MODE=release
-RUN mkdir /data
+#ENV GIN_MODE=release
 EXPOSE 8080
-USER nonroot:nonroot
+#ENV PORT=0.0.0.0:8080
 ENTRYPOINT ["/instance_tracker"]

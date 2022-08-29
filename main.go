@@ -1,17 +1,23 @@
 package main
 
 import (
+	"embed"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/mawoka-myblock/ClassQuiz-Instance-Tracker/src/models"
+	"html/template"
 	"net/http"
 )
+
+//go:embed src/templates/*.html
+var f embed.FS
 
 func main() {
 	r := gin.Default()
 	models.ConnectDatabase()
 
-	r.LoadHTMLGlob("src/templates/*.html")
+	templ := template.Must(template.New("").ParseFS(f, "src/templates/*.html"))
+	r.SetHTMLTemplate(templ)
 	r.GET("/private", func(c *gin.Context) {
 		var instances []models.Instance
 		models.DB.Order("created_at desc").Find(&instances)
@@ -42,7 +48,7 @@ func main() {
 				Users:          json.Users,
 				PublicQuizzes:  json.PublicQuizzes,
 				PrivateQuizzes: json.PrivateQuizzes,
-				IP:             c.RemoteIP(),
+				IP:             c.ClientIP(),
 			}).Error; err != nil {
 				c.JSON(http.StatusBadRequest, gin.H{"status": "something went wrong"})
 				return
@@ -54,7 +60,7 @@ func main() {
 				"Users":          json.Users,
 				"PublicQuizzes":  json.PublicQuizzes,
 				"PrivateQuizzes": json.PrivateQuizzes,
-				"IP":             c.RemoteIP(),
+				"IP":             c.ClientIP(),
 			})
 		}
 		fmt.Println(instance, "hi")

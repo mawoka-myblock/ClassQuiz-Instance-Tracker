@@ -3,8 +3,13 @@ module github.com/mawoka-myblock/ClassQuiz-Instance-Tracker
 go 1.19
 
 require (
+	github.com/gin-gonic/gin v1.8.1
+	gorm.io/driver/sqlite v1.3.6
+	gorm.io/gorm v1.23.8
+)
+
+require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/gin-gonic/gin v1.8.1 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.10.0 // indirect
@@ -25,6 +30,4 @@ require (
 	golang.org/x/text v0.3.6 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gorm.io/driver/sqlite v1.3.6 // indirect
-	gorm.io/gorm v1.23.8 // indirect
 )
